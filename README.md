@@ -1,6 +1,6 @@
 # ASN Checker
 
-This PHP script was an internal project to run lookups on IP addresses accessing a platform and store the relevant ASN and routes advertised by said ASN. I made it into a CLI tool for our internal support staff to easily use and understand for diagnosing low-level customer facing issues. 
+This PHP script was an internal project to run lookups on IP addresses accessing a platform and store the relevant ASN and routes advertised by said ASN. I made it into a CLI tool for myself and our internal support staff to easily use and understand for diagnosing low-level customer facing issues. 
 
 If you are unsure what an ASN is, this tool likely won't be useful to you. 
 
