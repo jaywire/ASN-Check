@@ -1,4 +1,4 @@
-# RBL Checker
+# ASN Checker
 
 This PHP script was an internal project to run lookups on IP addresses accessing a platform and store the relevant ASN and routes advertised by said ASN. I made it into a CLI tool for our internal support staff to easily use and understand for diagnosing low-level customer facing issues. 
 
