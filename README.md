@@ -3,6 +3,12 @@
 This PHP script was an internal project to run lookups on IP addresses accessing a platform and store the relevant ASN and routes advertised by said ASN. I made it into a CLI tool for our internal support staff to easily use and understand for diagnosing low-level customer facing issues. 
 
 If you are unsure what an ASN is, this tool likely won't be useful to you. 
+
+Note that RADb's whois service doesn't like mass queries. If you're going to run a lot of queries, invoke a telnet session or download a local copy of the database and parse the data. This script could easily be modified to do either of those. (Although managing a telnet session in PHP isn't exactly elegant - I'd do it in a shell script and pass the data back and forth using std_in and std_out)
+
+For more information, see here: https://www.radb.net/query/help
+
+There is no concern with team-cymru as we're using DNS queries. DNS queries are cached and don't build/tear down a session for each call since, you know, UDP is stateless and whatnot.
 <br><br>
 
 ## To Use:
