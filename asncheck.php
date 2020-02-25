@@ -26,17 +26,31 @@ foreach ($ipArg as $ip) {
         $split = explode('/', $ip);
         $ipRangeStart = ip2long($split[0]) & ((-1 << (32 - (int)$split[1])));
         $ipCleaned = long2ip($ipRangeStart);
-        echo "Removing CIDR notation and trying again. Query server does not accept subnets. (Using ".$ipCleaned.")\n\n";
+        echo "\nRemoving CIDR notation and trying again. Query server does not accept subnets. (Using ".$ipCleaned.")\n\n";
         $ipRange[] = trim($ipCleaned);
+        //echo "/ == true\n";
+        //var_dump($ipRange);
         } elseif (strpos($ip, '/') == false) {
             $ipRange[] = trim($ip);
+    } bogonData($ipRange);
+            list($bogonArr) = bogonData($ipRange);
+            $bogonArr = str_replace('"', '', trim($bogonArr));
+            if ($bogonArr == '127.0.0.2') {
+                $bogonIP = true;
+                echo "\n\033[1mBOGON DETECTED!\033[0m This IP is reserved for private use, not advertised, or not allocated!\n\n";
+                exit();
+                //var_dump($bogonArr);
+            } elseif ($bogonArr != '127.0.0.2') {
+                $ipRange[] = $ipRange;
+                //var_dump($bogonArr);
+        }
     }
-}
 
-if ($routeArg == null) {
+
+if ($routeArg == null && $bogonIP = false) {
     asnData($ipRange);
     list($originArr, $asnArr) = asnData($ipRange);
-    //list($routeArr) = routeData($originArr[0]);
+    list($routeArr) = routeData($originArr[0]);
     echo "\n\033[1m##ASN Information##\033[0m"."\n\n\033[1mAS Number:\033[0m AS".$originArr[0]."\n\033[1mBGP Prefix:\033[0m ".$originArr[1]."\n\033[1mAS Name:\033[0m ".$asnArr[4]."\n\033[1mCountry of Origin:\033[0m ".$originArr[2]."\n\033[1mRegistry:\033[0m ".$originArr[3]."\n\033[1mASN Allocation Date:\033[0m ".$asnArr[3]."\n\033[1mIPv4 Allocation Date:\033[0m ".$originArr[4]."\n\n";
 } if ($routeArg["routes"] === false) {
         asnData($ipRange);
@@ -48,6 +62,18 @@ if ($routeArg == null) {
                 echo "\033[1mRoute: \033[0m".$route."\n";
             } echo "\n";
     }
+
+function bogonData($ipRangeArr) {
+    $bogonTarget = 'v4.fullbogons.cymru.com';
+    foreach ($ipRangeArr as $ipAddressBogon) {
+        $rev = join('.', array_reverse(explode('.', trim($ipAddressBogon))));
+        $bogonCombine = sprintf('%s.%s', $rev, $bogonTarget);
+        $bogonLookup = "dig +short ".$bogonCombine;
+        $bogonQuery = `$bogonLookup`;
+        $bogonArr = $bogonQuery;
+        return[$bogonArr];
+    }
+}
 
 function asnData($ipRangeArr) {
     $originTarget = 'origin.asn.cymru.com';
