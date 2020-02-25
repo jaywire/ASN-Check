@@ -1,12 +1,12 @@
 #!/usr/bin/php
 <?php
-/* there is a really odd line break on the first item of the array. from these results the only way to get rid of it was to do a str_replace 
+/* 
+There is a really odd line break on the first item of the array "$routeArrPre". From these results the only way to get rid of it was to do a str_replace 
 on PHP_EOL and then shift it to the bottom of the array and pop it off.
 
-$routeArrShift = array_shift($routeArr);
-
-due to the unknown variable of returned routes, i'm not using array_shift since it re-indexes the entire array every time. the complexity of array_pop() is O(1).
-the complexity of array_shift() is O(n). due to the possibility this could be an automated process, i want it to be as past as possible.*/
+Due to the unknown variable of returned routes, i'm not using array_shift since it re-indexes the entire array every time. the complexity of array_pop() is O(1).
+the complexity of array_shift() is O(n). due to the possibility this could be an automated process, i want it to be as fast as possible.
+*/
 
 $routeArr = ["Advertised Routes:"];
 $ipRange = [];
