@@ -4,6 +4,8 @@ This PHP script was an internal project to run lookups on IP addresses accessing
 
 If you are unsure what an ASN is, this tool likely won't be useful to you. 
 
+Before any checks are done, this script will look for Bogon IP's. This will prevent you from running a query if the IP is identified on the bogon query. This is useful for mass queries so you don't waste whois lookups on a bogon. 
+
 Note that RADb's whois service doesn't like mass queries. If you're going to run a lot of queries, invoke a telnet session or download a local copy of the database and parse the data. This script could easily be modified to do either of those. (Although managing a telnet session in PHP isn't exactly elegant - I'd do it in a shell script and pass the data back and forth using std_in and std_out)
 
 For more information, see here: https://www.radb.net/query/help
