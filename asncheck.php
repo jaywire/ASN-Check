@@ -64,7 +64,7 @@ if ($routeArg == null && $bogonIP = false) {
     }
 
 function bogonData($ipRangeArr) {
-    $bogonTarget = 'v4.fullbogons.cymru.com';
+    $bogonTarget = 'bogons.cymru.com';
     foreach ($ipRangeArr as $ipAddressBogon) {
         $rev = join('.', array_reverse(explode('.', trim($ipAddressBogon))));
         $bogonCombine = sprintf('%s.%s', $rev, $bogonTarget);
