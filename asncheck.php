@@ -8,7 +8,7 @@ Due to the unknown variable of returned routes, i'm not using array_shift since 
 the complexity of array_shift() is O(n). due to the possibility this could be an automated process, i want it to be as fast as possible.
 */
 
-$routeArr = ["Advertised Routes:"];
+$routeArr = [];
 $ipRange = [];
 $ipArg = getopt(null, ["ip:"]);
 $routeArg = getopt(null, ["routes"]);
